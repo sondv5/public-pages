@@ -14,8 +14,8 @@ speakButton.addEventListener('click', function() {
     return voice.name === selectedVoice;
   });
   speechSynthesis.speak(utterance);
-  var { lang, name, voiceURI } = voices.find(e => e.name === selectedVoice);
-  information.value = JSON.stringify({ lang, name, voiceURI }, null, 2);
+  var { lang, name, voiceURI, localService } = voices.find(e => e.name === selectedVoice);
+  information.value = JSON.stringify({ lang, name, voiceURI, localService }, null, 2);
 });
 
 speechSynthesis.onvoiceschanged = function() {
@@ -26,6 +26,9 @@ speechSynthesis.onvoiceschanged = function() {
     var option = document.createElement('option');
     option.value = voices[i].name;
     option.textContent = voices[i].name;
+    if (voices[i].localService) {
+      option.style.color = '#2196F3';
+    }
     voicesList.appendChild(option);
   }
 };
